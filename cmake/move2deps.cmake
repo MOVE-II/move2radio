@@ -15,8 +15,9 @@ MOVEII_ADD_DEP(boost
   bd0df411efd9a585e5a2212275f8762079fed8842264954675a4fddc46cfcf60)
 
 MOVEII_ADD_DEP(gnuradio
-  https://github.com/gnuradio/gnuradio/releases/download/v3.7.13.4/gnuradio-3.7.13.4.tar.gz
-  c536c268b1e9c24f1206bbc881a5819ac46e662f4e8beaded6f3f441d3502f0d)
+  https://github.com/w0xel/gnuradio.git
+  1bcd43e10f258f42fd59d996ca607e4bd9eeafa7
+  GIT 1)
 
 MOVEII_ADD_DEP(rtl-sdr
   https://github.com/osmocom/rtl-sdr
@@ -75,11 +76,6 @@ MOVEII_ADD_DEP(libuhd
   https://github.com/EttusResearch/uhd/archive/v3.13.0.1.tar.gz
   ee5475e7ffbb14441b323cc2fc73950cde2326fd00772dab62efa677f27a97bf)
 
-MOVEII_ADD_DEP(orc
-  https://anongit.freedesktop.org/git/gstreamer/orc
-  65b69ae5c4c2e4d7a31a7d8534c31eb9fcc9daf4
-  GIT 1)
-
 MOVEII_ADD_DEP(ncurses
   https://github.com/mirror/ncurses/archive/v6.1.tar.gz
   bf8ecc53920e2c61fc48d3053075ab437d5a35e4d6a2a2eb111e812bb391fa3b)
@@ -87,3 +83,34 @@ MOVEII_ADD_DEP(ncurses
 MOVEII_ADD_DEP(airspy
   https://github.com/airspy/airspyone_host/archive/v1.0.9.tar.gz
   967ef256596d4527b81f007f77b91caec3e9f5ab148a8fec436a703db85234cc)
+
+MOVEII_ADD_DEP(hackrf
+  https://github.com/w0xel/hackrf.git
+  20b351916e4076378a890a23db07199ff72686dd
+  GIT 1)
+
+MOVEII_ADD_DEP(gr-iqbal
+  https://github.com/osmocom/gr-iqbal.git
+  dcd73fd54992430938ced73872b983bffd770b11
+  GIT 1)
+
+MOVEII_ADD_DEP(libosmosdr
+  http://ftp.debian.org/debian/pool/main/libo/libosmosdr/libosmosdr_0.1.8.effcaa7.orig.tar.xz
+  b75476ae7ab31d58bddf98f64c9f60e51c03005a5f05aa25007a9d0716a1c60b)
+
+MOVEII_ADD_DEP(libmirisdr
+  https://git.osmocom.org/libmirisdr
+  59ba3721b1cb7c746503d8de9c918f54fe7e8399
+  GIT 1)
+
+MOVEII_ADD_DEP(bladerf
+  https://github.com/Nuand/bladeRF/archive/2018.08.tar.gz
+  6288c230dad26e32236a4b60f0b14c129e6fa0ad91bcf1c40abe8789b352e51f)
+
+MOVEII_ADD_DEP(soapysdr
+  https://github.com/pothosware/SoapySDR/archive/soapy-sdr-0.7.0.tar.gz
+  cb2344be77f4d04f6cbafa183c7e39a2e6eb0da39c98fa77e9d60686c4e81e52)
+
+MOVEII_ADD_DEP(freersp
+  https://github.com/myriadrf/libfreesrp/archive/0.3.0.tar.gz
+  e6c394e439617a6bad8188d0a82392ea474fd241e0a153644f1200771f9eaeff)

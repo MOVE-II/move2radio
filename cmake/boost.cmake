@@ -1,3 +1,4 @@
+FILE(MAKE_DIRECTORY ${BUILD_PATH}/boost)
 ADD_CUSTOM_COMMAND(OUTPUT ${BUILD_PATH}/boost/b2
   COMMAND ${CMAKE_COMMAND} -E copy_directory ${BOOST_SOURCE} ${BUILD_PATH}/boost
   COMMAND ./bootstrap.sh
@@ -9,6 +10,7 @@ ADD_CUSTOM_COMMAND(OUTPUT ${BUILD_PATH}/boost/b2
 
 ADD_CUSTOM_COMMAND(OUTPUT ${PREFIX_PATH}/boost_installed
   COMMAND ./b2 --with-test install
+  COMMAND ./b2 install
   COMMAND ${CMAKE_COMMAND} -E touch ${PREFIX_PATH}/boost_installed
   WORKING_DIRECTORY ${BUILD_PATH}/boost
   DEPENDS ${BUILD_PATH}/boost/b2
