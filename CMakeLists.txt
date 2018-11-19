@@ -1,6 +1,6 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.0)
 PROJECT(move2radio
-  LANGUAGES NONE
+  LANGUAGES C
   DESCRIPTION "Portable Version of the MOVE-II groundstation")
 
 INCLUDE(ExternalProject)
@@ -122,3 +122,37 @@ ADD_DEPENDENCIES(build_libuhd build_boost build_ncurses)
 
 ADD_DEPENDENCIES(build_hackrf build_fftw)
 ADD_DEPENDENCIES(build_freersp build_boost)
+
+IF(APPIMAGE)
+  ADD_EXECUTABLE(AppRun AppDir/AppRun.c)
+  SET(APPDIR ${CMAKE_CURRENT_BINARY_DIR}/AppDir)
+  FILE(MAKE_DIRECTORY ${APPDIR})
+  IF(EXISTS ${APPDIR})
+	FILE(REMOVE_RECURSE ${APPDIR})
+  ENDIF()
+  ADD_CUSTOM_COMMAND(OUTPUT ${APPDIR}/AppRun
+	COMMAND ${CMAKE_COMMAND} -E copy_directory ${PREFIX_PATH} ${APPDIR}
+	COMMAND ${CMAKE_COMMAND} -E remove_directory ${APPDIR}/usr/include
+	COMMAND ${CMAKE_COMMAND} -E remove_directory ${APPDIR}/usr/pkgs
+	COMMAND ${CMAKE_COMMAND} -E remove_directory ${APPDIR}/usr/ssl
+	COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/AppDir ${APPDIR}
+	COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/AppRun ${APPDIR}/AppRun
+	DEPENDS AppRun move2radio)
+
+  ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/squashfs-root/AppRun
+	COMMAND chmod +x ${DEPS_PATH}/src/appimagetool-x86_64.AppImage
+	COMMAND ${DEPS_PATH}/src/appimagetool-x86_64.AppImage --appimage-extract
+	DEPENDS appimagetool)
+
+  ADD_CUSTOM_TARGET(appimagetool_extract
+	DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/squashfs-root/AppRun)
+
+  ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/Gnuradio_Companion-x86_64.AppImage
+	COMMAND env ARCH=x86_64 ${CMAKE_CURRENT_BINARY_DIR}/squashfs-root/AppRun ${APPDIR}
+	DEPENDS appimagetool_extract ${APPDIR}/AppRun)
+
+  ADD_CUSTOM_TARGET(appimage_build
+	DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/Gnuradio_Companion-x86_64.AppImage)
+
+  ADD_DEPENDENCIES(appimage appimage_build)
+ENDIF()
