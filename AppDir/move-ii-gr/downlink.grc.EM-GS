@@ -1274,7 +1274,7 @@
     </param>
     <param>
       <key>url</key>
-      <value>"localhost:8082"</value>
+      <value>"https://move2radio.lrt.mw.tum.de"</value>
     </param>
   </block>
   <block>
