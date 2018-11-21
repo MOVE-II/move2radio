@@ -86,7 +86,7 @@ MOVEII_ADD_DEP(airspy
 
 MOVEII_ADD_DEP(hackrf
   https://github.com/w0xel/hackrf.git
-  20b351916e4076378a890a23db07199ff72686dd
+  f7720c619b28c7693c3a2d40c3cf6c4d8973b8f8
   GIT 1)
 
 MOVEII_ADD_DEP(gr-iqbal

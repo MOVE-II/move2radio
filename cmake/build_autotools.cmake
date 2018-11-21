@@ -39,7 +39,7 @@ function(MOVEII_BUILD_AUTOTOOLS name)
   ### ./configure step:
   ADD_CUSTOM_COMMAND(OUTPUT ${BUILD_DIR}/Makefile
 	COMMAND ${SOURCE_DIR}/configure ${DEFAULT_OPTIONS} ${BUILD_EXTRA_OPTIONS}
-	DEPENDS ${name}_copy
+	DEPENDS ${name}_copy ${SOURCE_DIR}/configure
 	WORKING_DIRECTORY ${BUILD_DIR})
 
   ### make step:

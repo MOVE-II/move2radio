@@ -91,7 +91,7 @@ MOVEII_BUILD_CMAKE(gnuradio EXTRA_OPTIONS
   -DENABLE_GR_FCD=ON
   -DENABLE_GR_ANALOG=ON
   -DENABLE_GR_WAVELET=ON
-  -DENABLE_GRC=ON
+  -DENABLE_GRC=OFF
   -DENABLE_GR_QTGUI=ON
   -DENABLE_GR_DIGITAL=ON)
 ADD_DEPENDENCIES(build_gnuradio build_boost build_gsl build_fftw build_libiconv build_libuhd)
@@ -131,7 +131,7 @@ IF(APPIMAGE)
 	FILE(REMOVE_RECURSE ${APPDIR})
   ENDIF()
   ADD_CUSTOM_COMMAND(OUTPUT ${APPDIR}/AppRun
-	COMMAND ${CMAKE_COMMAND} -E copy_directory ${PREFIX_PATH} ${APPDIR}
+	COMMAND cp -r ${PREFIX_PATH} ${APPDIR}
 	COMMAND ${CMAKE_COMMAND} -E remove_directory ${APPDIR}/usr/include
 	COMMAND ${CMAKE_COMMAND} -E remove_directory ${APPDIR}/usr/pkgs
 	COMMAND ${CMAKE_COMMAND} -E remove_directory ${APPDIR}/usr/ssl
