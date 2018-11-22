@@ -1,5 +1,5 @@
 # Move2Radio
-Software to receive MOVE-II frames using sdr sticks. The hardware supported by this project is all hardware supported by [gr-osmosdr](https://github.com/osmocom/gr-osmosdr)
+Software to receive MOVE-II frames using sdr sticks. The hardware supported by this project is all hardware supported by [gr-osmosdr](https://github.com/osmocom/gr-osmosdr).
 Move2Radio is supported on Linux using the AppImage format. The software will decode the nanolink frames sent by the satellite and send it to the MOVE server via HTTP.
 
 ## Download
