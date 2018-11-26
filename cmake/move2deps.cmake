@@ -11,8 +11,8 @@ MOVEII_ADD_DEP(gsl
   0460ad7c2542caaddc6729762952d345374784100223995eb14d614861f2258d)
 
 MOVEII_ADD_DEP(boost
-  https://dl.bintray.com/boostorg/release/1.67.0/source/boost_1_67_0.tar.gz
-  8aa4e330c870ef50a896634c931adf468b21f8a69b77007e45c444151229f665)
+  https://dl.bintray.com/boostorg/release/1.68.0/source/boost_1_68_0.tar.gz
+  da3411ea45622579d419bfda66f45cd0f8c32a181d84adfa936f5688388995cf)
 
 MOVEII_ADD_DEP(gnuradio
   https://github.com/w0xel/gnuradio.git
@@ -73,8 +73,9 @@ MOVEII_ADD_DEP(libiconv
   ccf536620a45458d26ba83887a983b96827001e92a13847b45e4925cc8913178)
 
 MOVEII_ADD_DEP(libuhd
-  https://github.com/EttusResearch/uhd/archive/v3.13.0.1.tar.gz
-  ee5475e7ffbb14441b323cc2fc73950cde2326fd00772dab62efa677f27a97bf)
+  https://github.com/w0xel/uhd
+  18346747c13fa6163c8bdf31c9aa0d8631f35e4a
+  GIT 1)
 
 MOVEII_ADD_DEP(ncurses
   https://github.com/mirror/ncurses/archive/v6.1.tar.gz

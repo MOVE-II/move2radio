@@ -38,7 +38,7 @@ ADD_CUSTOM_TARGET(delete_prefix
   ${CMAKE_COMMAND} -E remove_directory ${PREFIX_PATH})
 ADD_CUSTOM_TARGET(prefix
   ${CMAKE_COMMAND} -E make_directory ${PREFIX_PATH}/usr/share
-  COMMAND echo \"CFLAGS=-I${PREFIX_PATH}/usr/include\\nLDFLAGS=-L${PREFIX_PATH}/usr/lib\\n\" > ${PREFIX_PATH}/usr/share/config.site)
+  COMMAND echo \"CFLAGS=-I${PREFIX_PATH}/usr/include\\nLDFLAGS=\\\"-L${PREFIX_PATH}/usr/lib -Wl,-rpath=${PREFIX_PATH}/usr/lib\\\"\\n\" > ${PREFIX_PATH}/config.site)
 
 ### Anaconda deploys a portable python + pygtk,numpy,pyqt ###
 INCLUDE(cmake/anaconda.cmake)
@@ -60,7 +60,7 @@ MOVEII_BUILD_AUTOTOOLS(gsl)
 MOVEII_BUILD_AUTOTOOLS(libiconv)
 MOVEII_BUILD_AUTOTOOLS(rtl-sdr)
 MOVEII_BUILD_AUTOTOOLS(gmp)
-MOVEII_BUILD_AUTOTOOLS(rxvt-unicode EXTRA_OPTIONS --disable-perl --enable-xft)
+MOVEII_BUILD_AUTOTOOLS(rxvt-unicode EXTRA_OPTIONS --disable-perl --enable-xft CONFIG_SITE ON)
 MOVEII_BUILD_AUTOTOOLS(ntl NO_DEFAULT ON SOURCE_SUFFIX "/src" COPY_SOURCE ON
   EXTRA_OPTIONS NTL_GMP_LIP=on SHARED=on NATIVE=off DEF_PREFIX=${PREFIX_PATH}/usr)
 MOVEII_BUILD_AUTOTOOLS(ncurses)
@@ -96,7 +96,7 @@ MOVEII_BUILD_CMAKE(gnuradio EXTRA_OPTIONS
   -DENABLE_GRC=OFF
   -DENABLE_GR_QTGUI=ON
   -DENABLE_GR_DIGITAL=ON)
-ADD_DEPENDENCIES(build_gnuradio build_boost build_gsl build_fftw build_libiconv)
+ADD_DEPENDENCIES(build_gnuradio build_boost build_gsl build_fftw build_libiconv build_libuhd)
 
 MOVEII_BUILD_AUTOTOOLS(fec NO_AUTORECONF ON NO_INSTALL ON)
 ## fec is to dumb to properly install:

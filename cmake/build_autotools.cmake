@@ -1,11 +1,14 @@
 function(MOVEII_BUILD_AUTOTOOLS name)
-  SET(options OPTIONAL NO_AUTORECONF NO_INSTALL NO_DEFAULT COPY_SOURCE)
+  SET(options OPTIONAL NO_AUTORECONF NO_INSTALL NO_DEFAULT COPY_SOURCE CONFIG_SITE)
   SET(oneValueArgs SOURCE_SUFFIX)
   SET(multiValueArgs EXTRA_OPTIONS)
   CMAKE_PARSE_ARGUMENTS(BUILD "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
   STRING(REPLACE "-" "_" underscore ${name})
   STRING(TOUPPER ${underscore} prefix)
 
+  IF(CONFIG_SITE)
+	SET(CONFIGURE_CONFIG_SITE "env CONFIG_SITE=${PREFIX_PATH}/config.site")
+  ENDIF()
 
   ### In case out-of-source build does not work copy source to build directory:
   IF(BUILD_COPY_SOURCE)
@@ -38,7 +41,7 @@ function(MOVEII_BUILD_AUTOTOOLS name)
 
   ### ./configure step:
   ADD_CUSTOM_COMMAND(OUTPUT ${BUILD_DIR}/Makefile
-	COMMAND ${SOURCE_DIR}/configure ${DEFAULT_OPTIONS} ${BUILD_EXTRA_OPTIONS}
+	COMMAND ${CONFIGURE_CONFIG_SITE} ${SOURCE_DIR}/configure ${DEFAULT_OPTIONS} ${BUILD_EXTRA_OPTIONS}
 	DEPENDS ${name}_copy ${SOURCE_DIR}/configure
 	WORKING_DIRECTORY ${BUILD_DIR})
 
