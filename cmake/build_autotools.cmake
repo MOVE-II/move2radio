@@ -40,9 +40,10 @@ function(MOVEII_BUILD_AUTOTOOLS name)
   ENDIF()
 
   ### ./configure step:
-  ADD_CUSTOM_COMMAND(OUTPUT ${BUILD_DIR}/Makefile
+  ADD_CUSTOM_COMMAND(OUTPUT ${BUILD_DIR}/configure.success
 	COMMAND ${CONFIGURE_CONFIG_SITE} ${SOURCE_DIR}/configure ${DEFAULT_OPTIONS} ${BUILD_EXTRA_OPTIONS}
 	DEPENDS ${name}_copy ${SOURCE_DIR}/configure
+	COMMAND ${CMAKE_COMMAND} -E touch ${BUILD_DIR}/configure.success
 	WORKING_DIRECTORY ${BUILD_DIR})
 
   ### make step:
@@ -50,12 +51,12 @@ function(MOVEII_BUILD_AUTOTOOLS name)
 	COMMAND ${MAKE} -j${N}
 	COMMAND ${CMAKE_COMMAND} -E touch ${BUILD_DIR}/success
 	WORKING_DIRECTORY ${BUILD_DIR}
-	DEPENDS ${BUILD_DIR}/Makefile)
+	DEPENDS ${BUILD_DIR}/configure.success)
 
   ### make install step: (if not disabled for some reason)
   IF(NOT BUILD_NO_INSTALL)
 	ADD_CUSTOM_COMMAND(OUTPUT ${PREFIX_PATH}/installed_${name}
-	  COMMAND ${MAKE} install
+	  COMMAND ${MAKE} -j${N} install
 	  COMMAND ${CMAKE_COMMAND} -E touch ${PREFIX_PATH}/installed_${name}
 	  WORKING_DIRECTORY ${BUILD_DIR}
 	  DEPENDS ${BUILD_DIR}/success)

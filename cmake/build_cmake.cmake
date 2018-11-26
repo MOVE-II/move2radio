@@ -22,7 +22,7 @@ function(MOVEII_BUILD_CMAKE name)
 
   ## make install step:
   ADD_CUSTOM_COMMAND(OUTPUT ${PREFIX_PATH}/installed_${name}
-	COMMAND ${MAKE} install
+	COMMAND ${MAKE} -j${N} install
 	COMMAND ${CMAKE_COMMAND} -E touch ${PREFIX_PATH}/installed_${name}
 	WORKING_DIRECTORY ${BUILD_PATH}/${name}
 	DEPENDS ${BUILD_PATH}/${name}/success)
