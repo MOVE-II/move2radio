@@ -37,7 +37,8 @@ INCLUDE(cmake/move2deps.cmake)
 ADD_CUSTOM_TARGET(delete_prefix
   ${CMAKE_COMMAND} -E remove_directory ${PREFIX_PATH})
 ADD_CUSTOM_TARGET(prefix
-  ${CMAKE_COMMAND} -E make_directory ${PREFIX_PATH})
+  ${CMAKE_COMMAND} -E make_directory ${PREFIX_PATH}/usr/share
+  COMMAND echo \"CFLAGS=-I${PREFIX_PATH}/usr/include\\nLDFLAGS=-L${PREFIX_PATH}/usr/lib\\n\" > ${PREFIX_PATH}/usr/share/config.site)
 
 ### Anaconda deploys a portable python + pygtk,numpy,pyqt ###
 INCLUDE(cmake/anaconda.cmake)
@@ -59,6 +60,7 @@ MOVEII_BUILD_AUTOTOOLS(gsl)
 MOVEII_BUILD_AUTOTOOLS(libiconv)
 MOVEII_BUILD_AUTOTOOLS(rtl-sdr)
 MOVEII_BUILD_AUTOTOOLS(gmp)
+MOVEII_BUILD_AUTOTOOLS(rxvt-unicode EXTRA_OPTIONS --disable-perl --enable-xft)
 MOVEII_BUILD_AUTOTOOLS(ntl NO_DEFAULT ON SOURCE_SUFFIX "/src" COPY_SOURCE ON
   EXTRA_OPTIONS NTL_GMP_LIP=on SHARED=on NATIVE=off DEF_PREFIX=${PREFIX_PATH}/usr)
 MOVEII_BUILD_AUTOTOOLS(ncurses)
@@ -94,7 +96,7 @@ MOVEII_BUILD_CMAKE(gnuradio EXTRA_OPTIONS
   -DENABLE_GRC=OFF
   -DENABLE_GR_QTGUI=ON
   -DENABLE_GR_DIGITAL=ON)
-ADD_DEPENDENCIES(build_gnuradio build_boost build_gsl build_fftw build_libiconv build_libuhd)
+ADD_DEPENDENCIES(build_gnuradio build_boost build_gsl build_fftw build_libiconv)
 
 MOVEII_BUILD_AUTOTOOLS(fec NO_AUTORECONF ON NO_INSTALL ON)
 ## fec is to dumb to properly install:
@@ -108,7 +110,7 @@ ADD_CUSTOM_TARGET(install_fec
   DEPENDS ${PREFIX_PATH}/usr/lib/libfec.so)
 
 ## Get the dependencies between the sources right:
-ADD_DEPENDENCIES(build_gr_osmosdr build_rtl_sdr build_gnuradio build_libuhd build_airspy build_gr_fcdproplus build_hackrf build_gr_iqbal build_libosmosdr build_libmirisdr build_bladerf build_soapysdr build_freersp)
+ADD_DEPENDENCIES(build_gr_osmosdr build_rtl_sdr build_gnuradio build_airspy build_gr_fcdproplus build_hackrf build_gr_iqbal build_libosmosdr build_libmirisdr build_bladerf build_soapysdr build_freersp build_libuhd)
 ADD_DEPENDENCIES(build_ntl build_gmp)
 ADD_DEPENDENCIES(build_curlpp build_curl)
 ADD_DEPENDENCIES(install_fec prefix)
@@ -122,6 +124,9 @@ ADD_DEPENDENCIES(build_libuhd build_boost build_ncurses)
 
 ADD_DEPENDENCIES(build_hackrf build_fftw)
 ADD_DEPENDENCIES(build_freersp build_boost)
+ADD_DEPENDENCIES(build_rxvt_unicode build_ncurses)
+
+
 
 IF(APPIMAGE)
   ADD_EXECUTABLE(AppRun AppDir/AppRun.c)
@@ -135,9 +140,10 @@ IF(APPIMAGE)
 	COMMAND ${CMAKE_COMMAND} -E remove_directory ${APPDIR}/usr/include
 	COMMAND ${CMAKE_COMMAND} -E remove_directory ${APPDIR}/usr/pkgs
 	COMMAND ${CMAKE_COMMAND} -E remove_directory ${APPDIR}/usr/ssl
+	COMMAND rm -rf ${APPDIR}/usr/lib/libuuid.so*
 	COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/AppDir ${APPDIR}
 	COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/AppRun ${APPDIR}/AppRun
-	DEPENDS AppRun move2radio)
+	DEPENDS AppRun move2radio build_rxvt_unicode)
 
   ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/squashfs-root/AppRun
 	COMMAND chmod +x ${DEPS_PATH}/src/appimagetool-x86_64.AppImage

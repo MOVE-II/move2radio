@@ -11,12 +11,12 @@ MOVEII_ADD_DEP(gsl
   0460ad7c2542caaddc6729762952d345374784100223995eb14d614861f2258d)
 
 MOVEII_ADD_DEP(boost
-  https://dl.bintray.com/boostorg/release/1.66.0/source/boost_1_66_0.tar.gz
-  bd0df411efd9a585e5a2212275f8762079fed8842264954675a4fddc46cfcf60)
+  https://dl.bintray.com/boostorg/release/1.67.0/source/boost_1_67_0.tar.gz
+  8aa4e330c870ef50a896634c931adf468b21f8a69b77007e45c444151229f665)
 
 MOVEII_ADD_DEP(gnuradio
   https://github.com/w0xel/gnuradio.git
-  1bcd43e10f258f42fd59d996ca607e4bd9eeafa7
+  c6dc747d45c0d41e77061f1618b9f64532ed3a1b
   GIT 1)
 
 MOVEII_ADD_DEP(rtl-sdr
@@ -44,7 +44,7 @@ MOVEII_ADD_DEP(ldpc
 
 MOVEII_ADD_DEP(gr-ccsds
   git@gitlab.lrz.de:sdr/gr-ccsds.git
-  b066609741417b16e378b1d46a8432549bd7b84c
+  3c7c09a8d61770a64f2d1e59c829db656d27632c
   GIT ON)
 
 MOVEII_ADD_DEP(curl
@@ -108,9 +108,18 @@ MOVEII_ADD_DEP(bladerf
   6288c230dad26e32236a4b60f0b14c129e6fa0ad91bcf1c40abe8789b352e51f)
 
 MOVEII_ADD_DEP(soapysdr
-  https://github.com/pothosware/SoapySDR/archive/soapy-sdr-0.7.0.tar.gz
-  cb2344be77f4d04f6cbafa183c7e39a2e6eb0da39c98fa77e9d60686c4e81e52)
+  https://github.com/w0xel/SoapySDR.git
+  a9b3d7a72b22a61f796bfc951dd4c6a21d49070a
+  GIT 1)
 
 MOVEII_ADD_DEP(freersp
   https://github.com/myriadrf/libfreesrp/archive/0.3.0.tar.gz
   e6c394e439617a6bad8188d0a82392ea474fd241e0a153644f1200771f9eaeff)
+
+MOVEII_ADD_DEP(xterm
+  ftp://ftp.invisible-island.net/xterm/xterm-337.tgz
+  ccac77ded347e78d5ffb69b381adf8b2377ce66644b8bec6308aaf19b9aecfa7)
+
+MOVEII_ADD_DEP(rxvt-unicode
+  http://dist.schmorp.de/rxvt-unicode/Attic/rxvt-unicode-9.22.tar.bz2
+  e94628e9bcfa0adb1115d83649f898d6edb4baced44f5d5b769c2eeb8b95addd)

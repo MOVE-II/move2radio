@@ -6,7 +6,7 @@ function(MOVEII_ADD_DEP name source hash)
 
   OPTION(${prefix}_OFFLINE "Don't download ${name}" OFF) 
 
-  STRING(REGEX MATCH "[.]tar[.]xz$|[.]zip$|[.]tar[.]gz$|[.]tar[.]xz$|[.]tar[.]lz$" ARCHIVE ${source})
+  STRING(REGEX MATCH "[.]tar[.]xz$|[.]zip$|[.]tar[.]gz$|[.]tar[.]xz$|[.]tar[.]lz$|[.]tgz$|[.]tar[.]bz2$" ARCHIVE ${source})
   IF("${ARCHIVE}" STREQUAL "")
 	SET(EXTRACT FALSE)
   ELSE()

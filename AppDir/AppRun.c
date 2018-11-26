@@ -114,51 +114,16 @@ int main(int argc, char *argv[]) {
         argcount += 1;
 
     // merge args
-    char*   outargptrs[argcount + argc + 3];
-    outargptrs[0] = exe;
-    int     outargindex = 1;
+    char*   outargptrs[argcount + argc + 8];
+    outargptrs[0] = "(";
+    outargptrs[1] = exe;
+    int     outargindex = 2;
     outargptrs[outargindex++] = new_exe;
-    arg                 = exe;
-    int     argc_       = argc - 1;     // argv[0] is the filename
-    char**  argv_       = argv + 1;
-    while ((arg += (strlen(arg)+1)) && *arg) {
-        if (arg[0] == '%' || (arg[0] == '"' && arg[1] == '%')) {         // handle desktop file field codes
-            char code = arg[arg[0] == '%' ? 1 : 2];
-            switch(code) {
-                case 'f':
-                case 'u':
-                    if (argc_ > 0) {
-                        outargptrs[outargindex++] = *argv_++;
-                        argc_--;
-                    }
-                    break;
-                case 'F':
-                case 'U':
-                    while (argc_ > 0) {
-                        outargptrs[outargindex++] = *argv_++;
-                        argc_--;
-                    }
-                    break;
-                case 'i':
-                case 'c':
-                case 'k':
-                    fprintf(stderr, "WARNING: Desktop file field code %%%c is not currently supported\n", code);
-                    break;
-                default:
-                    fprintf(stderr, "WARNING: Invalid desktop file field code %%%c\n", code);
-                    break;
-            }
-        } else {
-            outargptrs[outargindex++] = arg;
-        }
-    }
-    while (argc_ > 0) {
-        outargptrs[outargindex++] = *argv_++;
-        argc_--;
-    }
-    char *grc_file = malloc(appdir_s + 31);
-    snprintf(grc_file, appdir_s + 31, "%s/move-ii-gr/downlink.grc.EM-GS", appdir);
-    outargptrs[outargindex++] = grc_file;
+    outargptrs[outargindex++] = "2>&1";
+    outargptrs[outargindex++] = ")";
+    outargptrs[outargindex++] = "|grep";
+    outargptrs[outargindex++] = "-ve";
+    outargptrs[outargindex++] = "\"CRITICAL\\|AR: \\|WARNING\|^[[:space:]]*$\|Fontconfig\"";
     outargptrs[outargindex] = '\0';     // trailing null argument required by execvp()
 
     
@@ -167,7 +132,7 @@ int main(int argc, char *argv[]) {
     system(archive_lib);
     free (archive_lib);
     
-    printf("Here\n");
+    printf("Welcome to move2radio!\n");
 
     // change directory
     char *usr_in_appdir = malloc(appdir_s + 5);
@@ -214,18 +179,55 @@ int main(int argc, char *argv[]) {
     /* Otherwise may get errors because Python cannot write __pycache__ bytecode cache */
     putenv("PYTHONDONTWRITEBYTECODE=1");
 
+    char * urxvt = malloc(appdir_s + 10 + 6);
+    char * urxvt_bin = "urxvt";
+    char * font_flag = "-fn";
+    char * font = "xft:Monospace-12";
+    char * urxvt_flag = "-e";
+    sprintf(urxvt, "%s/usr/bin/%s", appdir, urxvt_bin);
+    char * bash = "/bin/bash";
+    char * bash_flag = "-c";
+    
+
     /* Run */
     printf("%s\n", new_path);
-    for (int i = 0; i <= outargindex; i++)
-	    printf("arg %d: %s\n", i, outargptrs[i]);
-    ret = execvp(exe, outargptrs);
+    int args_len = 0;
+    for (int i = 0; i < outargindex; i++) {
+	    printf("Length of '%s': ", outargptrs[i]);
+	    args_len += strlen(outargptrs[i] + 1);
+	    printf("%d\n", strlen(outargptrs[i]));
+    }
+
+    char * command_buffer = malloc(args_len);
+    int used = 0;
+    for (int i = 0; i < outargindex; i++) {
+	    int length = strlen(outargptrs[i]);
+	    memcpy(command_buffer + used, outargptrs[i], length);
+	    used += length;
+	    if(i + 1 < outargindex)
+		    command_buffer[used++] = ' ';
+    }
+    command_buffer[used] = '\0';
+    outargptrs[0] = urxvt;
+    //outargptrs[1] = font_flag;
+    //outargptrs[2] = font;
+    outargptrs[1] = urxvt_flag;
+    outargptrs[2] = bash;
+    outargptrs[3] = bash_flag;
+    outargptrs[4] = command_buffer;
+    
+    outargptrs[5] = '\0';
+
+    for (int i = 0; outargptrs[i] != '\0'; i++)
+	    printf("%s ", outargptrs[i]);
+    printf("\n");
+    ret = execvp(urxvt, outargptrs);
 
     int error = errno;
 
     if (ret == -1)
         die("Error executing '%s': %s\n", exe, strerror(error));
 
-    free(grc_file);
     free(new_exe);
     free(line);
     free(new_grc_blocks_path);
