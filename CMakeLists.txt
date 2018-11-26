@@ -38,7 +38,9 @@ ADD_CUSTOM_TARGET(delete_prefix
   ${CMAKE_COMMAND} -E remove_directory ${PREFIX_PATH})
 ADD_CUSTOM_TARGET(prefix
   ${CMAKE_COMMAND} -E make_directory ${PREFIX_PATH}/usr/share
-  COMMAND echo \"CFLAGS=-I${PREFIX_PATH}/usr/include\\nLDFLAGS=\\\"-L${PREFIX_PATH}/usr/lib -Wl,-rpath=${PREFIX_PATH}/usr/lib\\\"\\n\" > ${PREFIX_PATH}/config.site)
+  COMMAND echo \"CFLAGS=-I${PREFIX_PATH}/usr/include\\nLDFLAGS=\\\"-L${PREFIX_PATH}/usr/lib -Wl,-rpath=${PREFIX_PATH}/usr/lib\\\"\\n\" > ${PREFIX_PATH}/config.site
+  COMMAND rm -f ${PREFIX_PATH}/usr/lib/libuuid.*
+  COMMAND find / -not -path \"${CMAKE_CURRENT_BINARY_DIR}/*\" -name \"libuuid*.so*\" -exec ln -sf {} ${PREFIX_PATH}/usr/lib/libuuid.so \\\\; 2>/dev/null || [ -e ${PREFIX_PATH}/usr/lib/libuuid.so ])
 
 ### Anaconda deploys a portable python + pygtk,numpy,pyqt ###
 INCLUDE(cmake/anaconda.cmake)
