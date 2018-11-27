@@ -3,7 +3,7 @@ Software to receive MOVE-II frames using sdr sticks. The hardware supported by t
 Move2Radio is supported on Linux using the AppImage format. The software will decode the nanolink frames sent by the satellite and send it to the MOVE server via HTTP.
 
 ## Download
-You can download the newest version of move2radio here: TODO
+You can download the newest version of move2radio here: https://move2radio.lrt.mw.tum.de/download
 
 ## Install
 The AppImage itself can simply be started like a executable. On most linux systems you will have to mark the file as executable after download:
@@ -44,6 +44,10 @@ Now start move2radio and it should detect the sdr stick!
 Just start move2radio.AppImage and wait until it launches. The terminal that opens will tell you if there are any errors.
 When the program started, your session-id will be printed in the terminal. To later see which data you provided to the MOVE-II project, write this session-id down.
 Use the frequency slider to receive the correct frequency of the satellite.
+
+The session-id that appears in the terminal can be used to register your call-sign or name on https://move2radio.lrt.mw.tum.de/ 
+
+Your name/callsign will then appear on the leaderboard with the amount of frames your contributed.
 
 ## Build
 This repository provides the build script used to build move2radio. It downloads all needed sources as compiles them as needed.
