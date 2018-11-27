@@ -16,20 +16,27 @@ The AppImage itself can simply be started like a executable. On most linux syste
 To run this software you will need a SDR-stick compatible with [gr-osmosdr](https://github.com/osmocom/gr-osmosdr).
 The stick needs to be installed in your operating system for SDR usage. This means a udev rule will have to be installed and the kernel driver deactivated.
 #### Example for rtl_sdr devices
+The following is an example, you will have to find the exact udev rules needed for your device using google.
+
+
 First create a file `/etc/udev/rules.d/50-rtlsdr.rules` with the following content:
 ```
 SUBSYSTEM=="usb", ATTRS{idVendor}=="0bda", ATTRS{idProduct}=="2838", GROUP="adm", MODE="0666", SYMLINK+="rtl_sdr"
 ```
-You will have to find the exact udev rules needed for your device using google.
 Then reload the udev rules:
 ```
 sudo udevadm control --reload
 sudo udevadm trigger
 ```
-As final step remove the kernel driver:
+As final step remove the kernel driver (Note, see next if this does not work on your system):
 ```
 sudo rmmod dvb_usb_rtl28xxu
 ```
+To make this permanent, add the module to the module blacklist. Create a file `/etc/modprobe.d/sdr.conf` with the following content:
+```
+blacklist dvb_usb_rtl28xxu
+```
+and reboot!
 
 Now start move2radio and it should detect the sdr stick!
 
