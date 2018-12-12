@@ -153,7 +153,7 @@ class downlink(gr.top_block, Qt.QWidget):
 
         self.osmosdr_source_0 = osmosdr.source( args="numchan=" + str(1) + " " + 'bladerf=1269166c0b71088680ad4ec53222be07,xb200=144M' )
         self.osmosdr_source_0.set_sample_rate(samp_rate*samp_rate_factor)
-        self.osmosdr_source_0.set_center_freq(145.79e6, 0)
+        self.osmosdr_source_0.set_center_freq(145.95e6, 0)
         self.osmosdr_source_0.set_freq_corr(0, 0)
         self.osmosdr_source_0.set_dc_offset_mode(0, 0)
         self.osmosdr_source_0.set_iq_balance_mode(0, 0)
