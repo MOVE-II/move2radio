@@ -44,7 +44,7 @@ MOVEII_ADD_DEP(ldpc
 
 MOVEII_ADD_DEP(gr-ccsds
   git@gitlab.lrz.de:sdr/gr-ccsds.git
-  3c7c09a8d61770a64f2d1e59c829db656d27632c
+  d1e9db98c037bc0af40f20b6724900b6e390abb2
   GIT ON)
 
 MOVEII_ADD_DEP(curl
@@ -113,9 +113,10 @@ MOVEII_ADD_DEP(soapysdr
   a9b3d7a72b22a61f796bfc951dd4c6a21d49070a
   GIT 1)
 
-MOVEII_ADD_DEP(freersp
-  https://github.com/myriadrf/libfreesrp/archive/0.3.0.tar.gz
-  e6c394e439617a6bad8188d0a82392ea474fd241e0a153644f1200771f9eaeff)
+MOVEII_ADD_DEP(freesrp
+  https://github.com/w0xel/libfreesrp.git
+  2f2943c7fab6c13ad2a8af3b87f7efdca7c1bd26
+  GIT 1)
 
 MOVEII_ADD_DEP(xterm
   ftp://ftp.invisible-island.net/xterm/xterm-337.tgz

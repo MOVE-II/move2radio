@@ -123,7 +123,7 @@ int main(int argc, char *argv[]) {
     outargptrs[outargindex++] = ")";
     outargptrs[outargindex++] = "|grep";
     outargptrs[outargindex++] = "-ve";
-    outargptrs[outargindex++] = "\"CRITICAL\\|AR: \\|WARNING\|^[[:space:]]*$\|Fontconfig\"";
+    outargptrs[outargindex++] = "\"CRITICAL\\|AR: \\|WARNING\\|^[[:space:]]*$\\|Fontconfig\"";
     outargptrs[outargindex] = '\0';     // trailing null argument required by execvp()
 
     
@@ -188,17 +188,16 @@ int main(int argc, char *argv[]) {
     char * bash = "/bin/bash";
     char * bash_flag = "-c";
     
+    system("bash -c \"find /etc -name 'ca-*.crt' -exec ln -sf {} /tmp/ca-bundle.crt \\; 2>/dev/null\"");
 
     /* Run */
-    printf("%s\n", new_path);
     int args_len = 0;
     for (int i = 0; i < outargindex; i++) {
-	    printf("Length of '%s': ", outargptrs[i]);
 	    args_len += strlen(outargptrs[i] + 1);
-	    printf("%d\n", strlen(outargptrs[i]));
     }
 
-    char * command_buffer = malloc(args_len);
+    char * read_n1 = "|| read -n1";
+    char * command_buffer = malloc(args_len + 10);
     int used = 0;
     for (int i = 0; i < outargindex; i++) {
 	    int length = strlen(outargptrs[i]);
@@ -207,6 +206,8 @@ int main(int argc, char *argv[]) {
 	    if(i + 1 < outargindex)
 		    command_buffer[used++] = ' ';
     }
+    memcpy(command_buffer + used, read_n1, 10);
+    used += 10;
     command_buffer[used] = '\0';
     outargptrs[0] = urxvt;
     //outargptrs[1] = font_flag;
@@ -218,8 +219,6 @@ int main(int argc, char *argv[]) {
     
     outargptrs[5] = '\0';
 
-    for (int i = 0; outargptrs[i] != '\0'; i++)
-	    printf("%s ", outargptrs[i]);
     printf("\n");
     ret = execvp(urxvt, outargptrs);
 

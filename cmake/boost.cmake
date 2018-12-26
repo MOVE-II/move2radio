@@ -12,6 +12,7 @@ ADD_CUSTOM_COMMAND(OUTPUT ${PREFIX_PATH}/boost_installed
   COMMAND ./b2 --with-test install
   COMMAND ./b2 install
   COMMAND ${CMAKE_COMMAND} -E touch ${PREFIX_PATH}/boost_installed
+  COMMAND cp -r ${BOOST_SOURCE}/boost ${PREFIX_PATH}/usr/include/
   WORKING_DIRECTORY ${BUILD_PATH}/boost
   DEPENDS ${BUILD_PATH}/boost/b2
   )

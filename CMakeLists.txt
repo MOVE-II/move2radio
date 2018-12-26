@@ -68,7 +68,7 @@ MOVEII_BUILD_AUTOTOOLS(ntl NO_DEFAULT ON SOURCE_SUFFIX "/src" COPY_SOURCE ON
 MOVEII_BUILD_AUTOTOOLS(ncurses)
 MOVEII_BUILD_CMAKE(airspy)
 MOVEII_BUILD_CMAKE(gr-osmosdr)
-MOVEII_BUILD_CMAKE(curl)
+MOVEII_BUILD_CMAKE(curl EXTRA_OPTIONS -DCMAKE_USE_OPENSSL=ON)
 MOVEII_BUILD_CMAKE(curlpp)
 MOVEII_BUILD_CMAKE(gr-ccsds)
 MOVEII_BUILD_CMAKE(gr-iqbal)
@@ -78,7 +78,7 @@ MOVEII_BUILD_CMAKE(libmirisdr)
 MOVEII_BUILD_CMAKE(soapysdr)
 MOVEII_BUILD_CMAKE(hackrf SOURCE_SUFFIX "/host/")
 MOVEII_BUILD_CMAKE(gr-fcdproplus)
-MOVEII_BUILD_CMAKE(freersp)
+MOVEII_BUILD_CMAKE(freesrp)
 MOVEII_BUILD_CMAKE(libuhd EXTRA_OPTIONS -DENABLE_E100=ON -DENABLE_E300=ON -DENABLE_EXAMPLES=OFF -DENABLE_TESTS=OFF -DENABLE_UTILS=OFF SOURCE_SUFFIX "/host")
 
 MOVEII_BUILD_CMAKE(gnuradio EXTRA_OPTIONS
@@ -112,7 +112,7 @@ ADD_CUSTOM_TARGET(install_fec
   DEPENDS ${PREFIX_PATH}/usr/lib/libfec.so)
 
 ## Get the dependencies between the sources right:
-ADD_DEPENDENCIES(build_gr_osmosdr build_rtl_sdr build_gnuradio build_airspy build_gr_fcdproplus build_hackrf build_gr_iqbal build_libosmosdr build_libmirisdr build_bladerf build_soapysdr build_freersp build_libuhd)
+ADD_DEPENDENCIES(build_gr_osmosdr build_rtl_sdr build_gnuradio build_airspy build_gr_fcdproplus build_hackrf build_gr_iqbal build_libosmosdr build_libmirisdr build_bladerf build_soapysdr build_freesrp build_libuhd)
 ADD_DEPENDENCIES(build_ntl build_gmp)
 ADD_DEPENDENCIES(build_curlpp build_curl)
 ADD_DEPENDENCIES(install_fec prefix)
@@ -125,7 +125,7 @@ ADD_DEPENDENCIES(move2radio build_gr_ccsds build_gr_fcdproplus build_gr_osmosdr)
 ADD_DEPENDENCIES(build_libuhd build_boost build_ncurses)
 
 ADD_DEPENDENCIES(build_hackrf build_fftw)
-ADD_DEPENDENCIES(build_freersp build_boost)
+ADD_DEPENDENCIES(build_freesrp build_boost)
 ADD_DEPENDENCIES(build_rxvt_unicode build_ncurses)
 
 
