@@ -15,6 +15,8 @@ build:
     - mkdir build
     - cd build
     - cmake ../
+    - grep -rnw . -e "Sebastian"
+    - env
     - make appimage
   artifacts:
     name: "${CI_PROJECT_NAME}_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
