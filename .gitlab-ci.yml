@@ -12,7 +12,7 @@ build:
     - cmake --version
     - mkdir build
     - cd build
-    - grep -rnwl / -e "Würl" | xargs -0 rm -f
+    - grep -rnwl . -e "Würl" | xargs -0 rm -f
     - cmake ../
     - make appimage
   artifacts:
