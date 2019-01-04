@@ -5,6 +5,11 @@ build:
   image: ubuntu:xenial
   stage: build
   script:
+    - apt update -y && apt upgrade -y && apt install -y build-essential git cmake libusb-1.0-0-dev pkgconf swig libcppunit-dev python2.7 libudev-dev python-cheetah wget libxrender-dev libice-dev libsm6 autoconf unzip libtool-bin 
+    - wget https://cmake.org/files/v3.12/cmake-3.12.1-Linux-x86_64.sh && chmod +x cmake-3.12.1-Linux-x86_64.sh
+    - sh ./cmake-3.12.1-Linux-x86_64.sh --prefix=/opt/cmake --skip-license
+    - ln -s /opt/cmake/bin/cmake /usr/local/bin/cmake
+    - cmake --version
     - mkdir build
     - cd build
     - cmake ../
