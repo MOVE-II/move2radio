@@ -11,7 +11,7 @@ build:
     - ln -s /opt/cmake/bin/cmake /usr/local/bin/cmake
     - cmake --version
     - rm -rf .git
-    - grep -rnw . -e "Sebastian"
+    - rm cmake-3.12.1-Linux-x86_64.sh
     - mkdir build
     - cd build
     - cmake ../
