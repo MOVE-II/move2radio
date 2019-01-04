@@ -10,9 +10,9 @@ build:
     - mkdir -p /opt/cmake && sh ./cmake-3.12.1-Linux-x86_64.sh --prefix=/opt/cmake --skip-license
     - ln -s /opt/cmake/bin/cmake /usr/local/bin/cmake
     - cmake --version
+    - grep -rnwl . -e "Würl" | xargs -0 rm -vf || sh -c "true"
     - mkdir build
     - cd build
-    - grep -rnwl . -e "Würl" | xargs -0 rm -f
     - cmake ../
     - make appimage
   artifacts:
