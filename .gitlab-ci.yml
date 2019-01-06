@@ -19,8 +19,6 @@ build:
     - env
     - git config --global url."https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.lrz.de/".insteadOf "git@gitlab.lrz.de:"
     - make appimage
-  artifacts:
-    name: "${CI_PROJECT_NAME}_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
-    expire_in: 4 week
-    paths:
-      - build/*.AppImage
+    - echo "$SSH_DEPLOY_KEY" > id_rsa
+    - scp -i id_rsa Gnuradio_Companion-x86_64.AppImage deploy@move2radio.lrt.mw.tum.de:/home/deploy/move2radio-staging-x86_64.AppImage
+
