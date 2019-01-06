@@ -20,6 +20,7 @@ build:
     - git config --global url."https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.lrz.de/".insteadOf "git@gitlab.lrz.de:"
     - make appimage
     - echo "$SSH_DEPLOY_KEY" > id_rsa
+    - chmod 600 ./id_rsa
     - mkdir -p /root/.ssh && echo "move2radio.lrt.mw.tum.de,129.187.219.19 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBGGGGcNlYAHUns3lzPs6oh9E/6l8KSPckOGGA3t2w6khD7m4jdesEz2JRj9X2W08/vGOzF6w1P+rSLK8xbTYVls=" > /root/.ssh/known_hosts
-    - scp -i id_rsa Gnuradio_Companion-x86_64.AppImage deploy@move2radio.lrt.mw.tum.de:/home/deploy/move2radio-staging-x86_64.AppImage
+    - scp -i ./id_rsa Gnuradio_Companion-x86_64.AppImage deploy@move2radio.lrt.mw.tum.de:/home/deploy/move2radio-staging-x86_64.AppImage
 
