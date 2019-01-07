@@ -1,5 +1,5 @@
 [Desktop Entry]
 Name=Gnuradio Companion
-Exec=../../move-ii-gr/downlink_em.py
+Exec=../../move-ii-gr/downlink_fm.py
 Icon=grc
 Type=Application
