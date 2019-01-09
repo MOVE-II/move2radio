@@ -97,7 +97,7 @@ class downlink_fm(gr.top_block, Qt.QWidget):
         self.qtgui_sink_x_0_0_1 = qtgui.sink_c(
         	1024, #fftsize
         	firdes.WIN_BLACKMAN_hARRIS, #wintype
-        	145.79e6, #fc
+        	145.95e6, #fc
         	samp_rate*4, #bw
         	"Vor Sync", #name
         	True, #plotfreq
