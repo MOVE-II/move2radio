@@ -44,7 +44,7 @@ MOVEII_ADD_DEP(ldpc
 
 MOVEII_ADD_DEP(gr-ccsds
   git@gitlab.lrz.de:sdr/gr-ccsds.git
-  8674c3e50061cdfbe294ec8c79a3bcdb38d06b1b
+  cba721adf51259cf25420ad98bde4bf41f6a2935
   GIT ON)
 
 MOVEII_ADD_DEP(curl
