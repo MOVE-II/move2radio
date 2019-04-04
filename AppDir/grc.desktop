@@ -3,3 +3,4 @@ Name=Gnuradio Companion
 Exec=../../move-ii-gr/downlink_fm.py
 Icon=grc
 Type=Application
+Categories=Science;
